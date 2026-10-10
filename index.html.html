@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>AKUzz - Next-Gen AI Platform</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{font-family:'Kantumruy Pro','Noto Sans Khmer',system-ui,sans-serif;background:#070B14;color:#e2e8f0}
+.brand{font-family:'Space Grotesk','Kantumruy Pro',sans-serif}
+.grid-bg{background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at top,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse at top,#000 30%,transparent 75%)}
+.card{background:linear-gradient(145deg,rgba(15,22,38,.9),rgba(15,22,38,.5));border:1px solid #1e293b;transition:.3s}
+.card:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 10px 40px -12px var(--c)}
+.glow{box-shadow:0 0 24px rgba(6,182,212,.35)}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.orb{animation:fl 7s ease-in-out infinite}
+.spin{animation:sp .8s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body class="min-h-screen antialiased relative overflow-x-hidden">
+<div class="absolute inset-x-0 top-0 h-[520px] grid-bg pointer-events-none"></div>
+<div class="orb absolute -top-24 -left-24 w-96 h-96 rounded-full bg-cyan-500/20 blur-[100px] pointer-events-none"></div>
+<div class="orb absolute top-40 -right-24 w-96 h-96 rounded-full bg-purple-600/20 blur-[100px] pointer-events-none" style="animation-delay:-3s"></div>
+
+<header class="sticky top-0 z-40 backdrop-blur-xl bg-[#070B14]/70 border-b border-slate-800/80 px-5 py-3 flex justify-between items-center">
+  <div class="flex items-center gap-2">
+    <span class="brand text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">AKUzz</span>
+    <span class="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded-full font-bold">v1.1</span>
+  </div>
+  <div id="auth"></div>
+</header>
+
+<main class="relative max-w-6xl mx-auto px-5 py-14">
+  <section class="text-center max-w-3xl mx-auto mb-14 space-y-5">
+    <div class="inline-flex items-center gap-2 text-xs text-cyan-300 border border-cyan-500/30 bg-cyan-500/10 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>ប្រព័ន្ធដំណើរការ</div>
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">មជ្ឈមណ្ឌល AI &amp; Media<br>ជំនាន់ថ្មី</h1>
+    <p class="text-slate-400">ស្វាគមន៍មកកាន់ <b class="text-cyan-400">AKUzz</b> ទីកន្លែងប្រមូលផ្តុំឧបករណ៍ឆ្លាតវៃឈានមុខ។</p>
+  </section>
+
+  <section class="mb-14">
+    <div class="flex items-center gap-2 mb-6"><div class="w-1.5 h-6 bg-cyan-500 rounded-full"></div><h2 class="text-lg font-bold text-cyan-400">១. មុខងារ AI (AI Suite)</h2></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <button onclick="openTool('chat')" class="card text-left p-6 rounded-2xl" style="--c:#06b6d4"><div class="text-3xl mb-3">🤖</div><h3 class="font-bold mb-1">AI Chat &amp; Advice</h3><p class="text-xs text-slate-400">ជជែកកំសាន្ត និងទទួលដំបូន្មាន។</p></button>
+      <button onclick="openTool('math')" class="card text-left p-6 rounded-2xl" style="--c:#3b82f6"><div class="text-3xl mb-3">📝</div><h3 class="font-bold mb-1">ដោះស្រាយលំហាត់</h3><p class="text-xs text-slate-400">គណនាគណិតវិទ្យាភ្លាមៗ។</p></button>
+      <button onclick="openTool('bg')" class="card text-left p-6 rounded-2xl" style="--c:#a855f7"><div class="text-3xl mb-3">✂️</div><h3 class="font-bold mb-1">កាត់រូបភាព Background</h3><p class="text-xs text-slate-400">លុបផ្ទៃខាងក្រោយរូបភាព។</p></button>
+      <button onclick="openTool('up')" class="card text-left p-6 rounded-2xl" style="--c:#10b981"><div class="text-3xl mb-3">✨</div><h3 class="font-bold mb-1">ពង្រីករូបភាព 4K</h3><p class="text-xs text-slate-400">ពង្រីករូបឱ្យធំ និងច្បាស់ជាង។</p></button>
+    </div>
+  </section>
+
+  <section>
+    <div class="flex items-center gap-2 mb-6"><div class="w-1.5 h-6 bg-purple-500 rounded-full"></div><h2 class="text-lg font-bold text-purple-400">២. ប្រព័ន្ធទាញយកវីដេអូ</h2></div>
+    <div class="card rounded-3xl p-6 md:p-8 max-w-2xl mx-auto space-y-5" style="--c:#a855f7">
+      <div class="flex flex-wrap justify-center gap-2 text-xs text-slate-300">
+        <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700">🎵 TikTok</span><span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700">📺 YouTube</span><span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700">📸 Instagram</span><span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-700">🔵 Facebook</span>
+      </div>
+      <input id="url" type="url" placeholder="ដាក់ Link វីដេអូនៅទីនេះ..." class="w-full bg-[#090D1A] border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20">
+      <div id="plat" class="text-center text-xs text-slate-500 h-4"></div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button id="b-video" onclick="dl('video')" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-fuchsia-600 font-semibold text-sm text-white hover:brightness-110 transition">ទាញយក Video (MP4)</button>
+        <button id="b-mp3" onclick="dl('mp3')" class="px-6 py-2.5 rounded-xl bg-slate-900 border border-cyan-500/50 font-semibold text-sm text-cyan-400 hover:bg-cyan-500/10 transition">ទាញយក MP3</button>
+      </div>
+    </div>
+  </section>
+  <section class="mt-14">
+    <div class="flex items-center gap-2 mb-6"><div class="w-1.5 h-6 bg-emerald-500 rounded-full"></div><h2 class="text-lg font-bold text-emerald-400">៣. ឧបករណ៍បន្ថែម (Extra Tools)</h2></div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <button onclick="openTool('pw')" class="card text-left p-6 rounded-2xl" style="--c:#f59e0b"><div class="text-3xl mb-3">🔐</div><h3 class="font-bold mb-1">បង្កើត Password</h3><p class="text-xs text-slate-400">លេខសម្ងាត់រឹងមាំ ចៃដន្យ។</p></button>
+      <button onclick="openTool('cmp')" class="card text-left p-6 rounded-2xl" style="--c:#ec4899"><div class="text-3xl mb-3">📦</div><h3 class="font-bold mb-1">បង្រួមរូបភាព</h3><p class="text-xs text-slate-400">កាត់បន្ថយទំហំឯកសាររូប។</p></button>
+      <button onclick="openTool('qr')" class="card text-left p-6 rounded-2xl" style="--c:#22d3ee"><div class="text-3xl mb-3">🔳</div><h3 class="font-bold mb-1">បង្កើត QR Code</h3><p class="text-xs text-slate-400">ប្តូរ Link ឬអត្ថបទជា QR។</p></button>
+    </div>
+  </section>
+</main>
+
+<footer class="text-center text-xs text-slate-600 py-8 border-t border-slate-800/60">© 2026 AKUzz</footer>
+
+<!-- MODAL -->
+<div id="modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm items-center justify-center p-4" onclick="if(event.target===this)closeTool()">
+  <div class="w-full max-w-lg max-h-[90%] overflow-y-auto bg-[#0B1120] border border-slate-700 rounded-2xl p-5 glow">
+    <div class="flex justify-between items-center mb-4"><h3 id="m-title" class="font-bold text-lg"></h3><button onclick="closeTool()" class="text-slate-400 hover:text-white text-xl leading-none">✕</button></div>
+    <div id="m-body"></div>
+  </div>
+</div>
+<div id="toast" class="fixed left-1/2 -translate-x-1/2 bottom-6 z-[60] hidden px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm shadow-xl"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(m){const t=$('toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.add('hidden'),2800)}
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+
+/* ---------- Account ---------- */
+function renderAuth(){
+  const u=store.get('akuzz_user');
+  $('auth').innerHTML=u?`<div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full py-1 pl-3 pr-1">
+    <span class="text-xs text-slate-300">${u}</span>
+    <button onclick="disconnect()" title="ផ្តាច់" class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 font-bold text-sm text-slate-950">${u[0].toUpperCase()}</button></div>`
+  :`<button onclick="connect()" class="glow px-5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-sm text-slate-950 hover:brightness-110 transition">ភ្ជាប់គណនី</button>`;
+}
+function connect(){store.set('akuzz_user','akuzz_user#'+(1000+Math.floor(Math.random()*9000)));renderAuth();toast('✅ ភ្ជាប់គណនីដោយជោគជ័យ!')}
+function disconnect(){store.del('akuzz_user');renderAuth();toast('បានផ្តាច់គណនី')}
+
+/* ---------- Downloader ---------- */
+const P=[['tiktok.com','TikTok'],['youtube.com','YouTube'],['youtu.be','YouTube'],['instagram.com','Instagram'],['facebook.com','Facebook'],['fb.watch','Facebook']];
+function platform(v){try{const h=new URL(v).hostname;const m=P.find(p=>h.endsWith(p[0]));return m?m[1]:null}catch(e){return undefined}}
+$('url').addEventListener('input',e=>{const v=e.target.value.trim(),p=platform(v);$('plat').textContent=!v?'':p===undefined?'⚠️ Link មិនត្រឹមត្រូវ':p?'✔ រកឃើញ៖ '+p:'⚠️ វេទិកាមិនទាន់គាំទ្រ'});
+function dl(type){
+  const v=$('url').value.trim(),p=platform(v);
+  if(!v)return toast('សូមបញ្ចូល Link វីដេអូជាមុនសិន!');
+  if(p===undefined)return toast('Link មិនត្រឹមត្រូវ');
+  if(!p)return toast('គាំទ្រតែ TikTok, YouTube, Instagram, Facebook');
+  const b=$('b-'+type),old=b.innerHTML;b.disabled=true;b.innerHTML='<span class="spin inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full align-middle"></span> កំពុងដំណើរការ...';
+  setTimeout(()=>{b.disabled=false;b.innerHTML=old;toast(`🔌 ${p} ${type.toUpperCase()}៖ ត្រូវការ Backend API ដើម្បីទាញយកពិតប្រាកដ`)},1400);
+}
+
+/* ---------- Tools ---------- */
+const T={
+chat:['🤖 AI Chat',`<div id="log" class="h-56 overflow-y-auto space-y-2 mb-3 text-sm"><div class="bg-slate-800/70 rounded-xl p-3">សួស្តី! ខ្ញុំជា AKUzz Bot។ (របៀបសាកល្បង)</div></div>
+<div class="flex gap-2"><input id="msg" class="flex-1 bg-[#090D1A] border border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-cyan-500" placeholder="សរសេរសារ..." onkeydown="if(event.key==='Enter')send()"><button onclick="send()" class="px-4 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm">ផ្ញើ</button></div>`],
+math:['📝 ដោះស្រាយលំហាត់',`<p class="text-xs text-slate-400 mb-2">បញ្ចូលកន្សោម ឧ. (12+8)*3/4 ឬ 2^10</p>
+<div class="flex gap-2"><input id="expr" class="flex-1 bg-[#090D1A] border border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500" onkeydown="if(event.key==='Enter')calc()"><button onclick="calc()" class="px-4 rounded-xl bg-blue-500 text-white font-bold text-sm">គណនា</button></div>
+<div id="res" class="mt-4 text-2xl font-bold text-blue-400"></div>`],
+bg:['✂️ កាត់ Background',`<p class="text-xs text-slate-400 mb-2">លុបពណ៌ផ្ទៃខាងក្រោយ (យកពណ៌ជ្រុងរូបភាព) · សមស្របនឹងផ្ទៃពណ៌ធម្មតា</p>
+<input type="file" accept="image/*" id="f" class="text-xs mb-3 w-full" onchange="loadImg(this,'bg')">
+<label class="text-xs text-slate-400">ភាពប្រែប្រួល: <span id="tv">40</span></label><input type="range" id="tol" min="5" max="120" value="40" class="w-full" oninput="$('tv').textContent=this.value;rmBg()">
+<canvas id="cv" class="w-full mt-3 rounded-lg" style="background:repeating-conic-gradient(#1e293b 0 25%,#0f172a 0 50%) 0 0/16px 16px"></canvas>
+<button onclick="saveCv('akuzz-nobg.png')" class="mt-3 w-full py-2 rounded-xl bg-purple-600 font-bold text-sm">ទាញយក PNG</button>`],
+pw:['🔐 បង្កើត Password',`<div class="text-xs text-slate-400 mb-1">ប្រវែង: <span id="plv">16</span></div>
+<input type="range" id="pl" min="8" max="32" value="16" class="w-full" oninput="$('plv').textContent=this.value;genPw()">
+<input id="pwo" readonly class="w-full mt-3 bg-[#090D1A] border border-slate-700 rounded-xl px-3 py-2 text-sm font-mono">
+<div class="flex gap-2 mt-3"><button onclick="genPw()" class="flex-1 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-sm">បង្កើតថ្មី</button><button onclick="copyPw()" class="flex-1 py-2 rounded-xl bg-slate-800 border border-slate-600 font-bold text-sm">ចម្លង</button></div>`],
+cmp:['📦 បង្រួមរូបភាព',`<input type="file" accept="image/*" class="text-xs mb-3 w-full" onchange="loadImg(this,'cmp')">
+<label class="text-xs text-slate-400">គុណភាព (កាន់តែទាប ឯកសារកាន់តែតូច)</label><input type="range" id="cq" min="10" max="95" value="70" class="w-full" oninput="compress()">
+<canvas id="cv" class="w-full mt-3 rounded-lg bg-slate-900"></canvas><div id="info" class="text-sm text-pink-400 mt-2"></div>
+<button onclick="saveCmp()" class="mt-3 w-full py-2 rounded-xl bg-pink-600 font-bold text-sm">ទាញយក JPG</button>`],
+qr:['🔳 បង្កើត QR Code',`<input id="qt" placeholder="ដាក់ Link ឬអត្ថបទ..." class="w-full bg-[#090D1A] border border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-cyan-500" onkeydown="if(event.key==='Enter')genQr()">
+<button onclick="genQr()" class="mt-3 w-full py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-sm">បង្កើត</button>
+<div class="text-center mt-4"><div id="qrbox" class="inline-block p-3 bg-white rounded-xl min-w-[40px] min-h-[40px]"></div></div>
+<button onclick="saveQr()" class="mt-3 w-full py-2 rounded-xl bg-slate-800 border border-slate-600 font-bold text-sm">ទាញយក PNG</button>`],
+up:['✨ ពង្រីករូបភាព 4K',`<p class="text-xs text-slate-400 mb-2">ពង្រីករូបទៅទទឹង 3840px (4K) ដោយគុណភាពខ្ពស់ក្នុង Browser</p>
+<input type="file" accept="image/*" id="f" class="text-xs mb-3 w-full" onchange="loadImg(this,'up')">
+<canvas id="cv" class="w-full rounded-lg bg-slate-900"></canvas><div id="info" class="text-xs text-slate-400 mt-2"></div>
+<button onclick="saveCv('akuzz-4k.png')" class="mt-3 w-full py-2 rounded-xl bg-emerald-600 font-bold text-sm">ទាញយក 4K</button>`]
+};
+let img=null;
+function openTool(k){$('m-title').textContent=T[k][0];$('m-body').innerHTML=T[k][1];$('modal').classList.remove('hidden');$('modal').classList.add('flex');img=null;if(k==='pw')genPw()}
+function closeTool(){$('modal').classList.add('hidden');$('modal').classList.remove('flex')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTool()});
+
+function send(){
+  const i=$('msg'),v=i.value.trim();if(!v)return;
+  const l=$('log');l.insertAdjacentHTML('beforeend','<div class="bg-cyan-500/15 border border-cyan-500/20 rounded-xl p-3 ml-8"></div>');l.lastChild.textContent=v;
+  i.value='';
+  setTimeout(()=>{l.insertAdjacentHTML('beforeend','<div class="bg-slate-800/70 rounded-xl p-3 mr-8">🔌 នេះជារបៀបសាកល្បង។ ភ្ជាប់ AI API នៅ Backend ដើម្បីឆ្លើយតបពិតប្រាកដ។</div>');l.scrollTop=l.scrollHeight},500);
+  l.scrollTop=l.scrollHeight;
+}
+function calc(){
+  const s=$('expr').value.trim().replace(/×/g,'*').replace(/÷/g,'/');
+  if(!/^[0-9+\-*/().\s^%]+$/.test(s))return $('res').textContent='⚠️ កន្សោមមិនត្រឹមត្រូវ';
+  try{const r=Function('"use strict";return ('+s.replace(/\^/g,'**')+')')();$('res').textContent=Number.isFinite(r)?'= '+(+r.toFixed(10)):'⚠️ មិនអាចគណនា'}catch(e){$('res').textContent='⚠️ កន្សោមមិនត្រឹមត្រូវ'}
+}
+function loadImg(inp,mode){
+  const f=inp.files[0];if(!f)return;window.origSize=f.size;
+  const im=new Image();im.onload=()=>{img=im;mode==='bg'?rmBg():mode==='cmp'?compress():upscale()};im.onerror=()=>toast('មិនអាចអានរូបភាព');im.src=URL.createObjectURL(f);
+}
+function rmBg(){
+  if(!img)return;const c=$('cv'),x=c.getContext('2d',{willReadFrequently:true});
+  const s=Math.min(1,1200/img.width);c.width=img.width*s;c.height=img.height*s;x.drawImage(img,0,0,c.width,c.height);
+  const d=x.getImageData(0,0,c.width,c.height),a=d.data,t=+$('tol').value,w=c.width,h=c.height;
+  const px=[[0,0],[w-1,0],[0,h-1],[w-1,h-1]].map(([i,j])=>{const k=(j*w+i)*4;return[a[k],a[k+1],a[k+2]]});
+  const bg=[0,1,2].map(n=>px.reduce((s,p)=>s+p[n],0)/4);
+  for(let i=0;i<a.length;i+=4){const dist=Math.hypot(a[i]-bg[0],a[i+1]-bg[1],a[i+2]-bg[2]);if(dist<t)a[i+3]=0;else if(dist<t*1.4)a[i+3]=255*(dist-t)/(t*.4)}
+  x.putImageData(d,0,0);
+}
+function upscale(){
+  if(!img)return;const c=$('cv'),x=c.getContext('2d');
+  const W=3840,s=W/img.width;c.width=W;c.height=Math.round(img.height*s);
+  x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';
+  // ពង្រីកជាជំហានៗ ដើម្បីបានគុណភាពល្អជាង
+  let cur=img,cw=img.width,ch=img.height;
+  while(cw*2<W){const t=document.createElement('canvas');t.width=cw*2;t.height=ch*2;const tx=t.getContext('2d');tx.imageSmoothingQuality='high';tx.drawImage(cur,0,0,t.width,t.height);cur=t;cw=t.width;ch=t.height}
+  x.drawImage(cur,0,0,c.width,c.height);
+  $('info').textContent=`${img.width}×${img.height} → ${c.width}×${c.height}`;
+}
+function saveCv(n){
+  const c=$('cv');if(!img||!c.width)return toast('សូមជ្រើសរូបភាពជាមុនសិន');
+  c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
+}
+function genPw(){
+  const n=+$('pl').value,cs='abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*';
+  const a=new Uint32Array(n);crypto.getRandomValues(a);
+  $('pwo').value=[...a].map(x=>cs[x%cs.length]).join('');
+}
+function copyPw(){
+  const v=$('pwo').value;
+  (navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).then(()=>toast('✅ បានចម្លង'),()=>{$('pwo').select();toast('សូមចម្លងដោយដៃ')});
+}
+function compress(){
+  if(!img)return;
+  const q=+$('cq').value/100,s=Math.min(1,2000/Math.max(img.width,img.height)),c=$('cv');
+  c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);
+  const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);
+  c.toBlob(b=>{window.cmpBlob=b;$('info').textContent=`${(window.origSize/1024).toFixed(0)} KB → ${(b.size/1024).toFixed(0)} KB`},'image/jpeg',q);
+}
+function saveCmp(){
+  if(!window.cmpBlob)return toast('សូមជ្រើសរូបភាពជាមុនសិន');
+  const a=document.createElement('a');a.href=URL.createObjectURL(window.cmpBlob);a.download='akuzz-compressed.jpg';a.click();
+}
+function genQr(){
+  const t=$('qt').value.trim();if(!t)return toast('សូមបញ្ចូលអត្ថបទ ឬ Link');
+  const b=$('qrbox');b.innerHTML='';
+  if(typeof QRCode==='undefined')return toast('Library QR មិនទាន់ផ្ទុក');
+  new QRCode(b,{text:t,width:220,height:220,colorDark:'#000000',colorLight:'#ffffff'});
+}
+function saveQr(){
+  const c=$('qrbox').querySelector('canvas');if(!c)return toast('សូមបង្កើត QR ជាមុនសិន');
+  const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='akuzz-qr.png';a.click();
+}
+renderAuth();
+</script>
+</body>
+</html>
